@@ -13,20 +13,20 @@
 class shift_register_74hc595
 {
    public:
-      shift_register_74hc595(int iNbrChainedRegisters_, int iSerPin_, int iSerClkPin_, int iRegClkPin_);
+      shift_register_74hc595(unsigned int uiNbrChainedRegisters_, unsigned int uiSerPin_, unsigned int uiSerClkPin_, unsigned int uiRegClkPin_);
 
       void clearRegisters(void);
       void writeRegisters(void);
-      void setRegisterPin(int iPin_, bool bVal_);
-      bool getRegisterPin(int iPin_);
+      void setRegisterPin(unsigned int uiPin_, bool bVal_);
+      bool getRegisterPin(unsigned int uiPin_);
 
    private:
       bool *pbRegisterState;
 
-      int iNbrRegPins;
-      int iSerPin;
-      int iSerClkPin;
-      int iRegClkPin;
+      unsigned int uiNbrRegPins;
+      unsigned int uiSerPin;
+      unsigned int uiSerClkPin;
+      unsigned int uiRegClkPin;
 };
 
 #endif /* SHIFT_REGISTER_74HC595_H_ */

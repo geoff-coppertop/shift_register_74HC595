@@ -9,20 +9,20 @@
 // The number of output pins on the 74HC595
 #define NBR_REG_PINS 8
 
-shift_register_74hc595::shift_register_74hc595(int iNbrChainedRegisters_, int iSerPin_, int iSerClkPin_, int iRegClkPin_)
+shift_register_74hc595::shift_register_74hc595(unsigned int uiNbrChainedRegisters_, unsigned int uiSerPin_, unsigned int uiSerClkPin_, unsigned int uiRegClkPin_)
 {
-   iSerPin = iSerPin_;
-   iSerClkPin = iSerClkPin_;
-   iRegClkPin = iRegClkPin_;
+   uiSerPin = uiSerPin_;
+   uiSerClkPin = uiSerClkPin_;
+   uiRegClkPin = uiRegClkPin_;
 
-   iNbrRegPins = iNbrChainedRegisters_ * NBR_REG_PINS;
+   uiNbrRegPins = uiNbrChainedRegisters_ * NBR_REG_PINS;
 
-   pinMode(iSerPin, OUTPUT);
-   pinMode(iSerClkPin, OUTPUT);
-   pinMode(iRegClkPin, OUTPUT);
+   pinMode(uiSerPin, OUTPUT);
+   pinMode(uiSerClkPin, OUTPUT);
+   pinMode(uiRegClkPin, OUTPUT);
 
    // allocate a space for the buffer to store register state
-   pbRegisterState = (bool *)(malloc(sizeof(bool) * iNbrRegPins));
+   pbRegisterState = (bool *)(malloc(sizeof(bool) * uiNbrRegPins));
 
    //reset all register pins
    clearRegisters();
@@ -33,7 +33,7 @@ shift_register_74hc595::shift_register_74hc595(int iNbrChainedRegisters_, int iS
 //set all register pins to LOW
 void shift_register_74hc595::clearRegisters(void)
 {
-   for(int i = iNbrRegPins - 1; i >=  0; i--)
+   for(unsigned int i = uiNbrRegPins - 1; i >=  0; i--)
    {
       pbRegisterState[i] = LOW;
    }
@@ -44,27 +44,39 @@ void shift_register_74hc595::clearRegisters(void)
 //Only call AFTER all values are set how you would like (slow otherwise)
 void shift_register_74hc595::writeRegisters(void)
 {
-   digitalWrite(iRegClkPin, LOW);
+   digitalWrite(uiRegClkPin, LOW);
 
-   for(int i = iNbrRegPins - 1; i >=  0; i--)
+   for(int i = uiNbrRegPins - 1; i >=  0; i--)
    {
       bool bVal = pbRegisterState[i];
 
-      digitalWrite(iSerClkPin, LOW);
-      digitalWrite(iSerPin, bVal);
-      digitalWrite(iSerClkPin, HIGH);
+      digitalWrite(uiSerClkPin, LOW);
+      digitalWrite(uiSerPin, bVal);
+      digitalWrite(uiSerClkPin, HIGH);
    }
 
-   digitalWrite(iRegClkPin, HIGH);
+   digitalWrite(uiRegClkPin, HIGH);
 }
 
 //set an individual pin HIGH or LOW
-void shift_register_74hc595::setRegisterPin(int iPin_, bool bVal_)
+void shift_register_74hc595::setRegisterPin(unsigned int uiPin_, bool bVal_)
 {
-   pbRegisterState[iPin_] = bVal_;
+   if(uiPin_ >= uiNbrRegPins)
+   {
+      return;
+   }
+
+   pbRegisterState[uiPin_] = bVal_;
 }
 
-bool shift_register_74hc595::getRegisterPin(int iPin_)
+bool shift_register_74hc595::getRegisterPin(unsigned int uiPin_)
 {
-   return pbRegisterState[iPin_];
+   if(uiPin_ >= uiNbrRegPins)
+   {
+      return LOW;
+   }
+   else
+   {
+      return pbRegisterState[uiPin_];
+   }
 }
