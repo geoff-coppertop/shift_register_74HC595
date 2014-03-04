@@ -1,0 +1,5 @@
+shift_register_74hc595	KEYWORD1
+clear					KEYWORD2
+write					KEYWORD2
+setPin					KEYWORD2
+getPin					KEYWORD2

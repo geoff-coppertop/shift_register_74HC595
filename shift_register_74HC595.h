@@ -15,10 +15,10 @@ class shift_register_74hc595
    public:
       shift_register_74hc595(unsigned int uiNbrChainedRegisters_, unsigned int uiSerPin_, unsigned int uiSerClkPin_, unsigned int uiRegClkPin_);
 
-      void clearRegisters(void);
-      void writeRegisters(void);
-      void setRegisterPin(unsigned int uiPin_, bool bVal_);
-      bool getRegisterPin(unsigned int uiPin_);
+      void clear(void);
+      void write(void);
+      void setPin(unsigned int uiPin_, bool bVal_);
+      bool getPin(unsigned int uiPin_);
 
    private:
       bool *pbRegisterState;

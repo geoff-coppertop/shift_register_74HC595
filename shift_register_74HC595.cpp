@@ -31,7 +31,7 @@ shift_register_74hc595::shift_register_74hc595(unsigned int uiNbrChainedRegister
 
 
 //set all register pins to LOW
-void shift_register_74hc595::clearRegisters(void)
+void shift_register_74hc595::clear(void)
 {
    for(unsigned int i = uiNbrRegPins - 1; i >=  0; i--)
    {
@@ -42,7 +42,7 @@ void shift_register_74hc595::clearRegisters(void)
 
 //Set and display registers
 //Only call AFTER all values are set how you would like (slow otherwise)
-void shift_register_74hc595::writeRegisters(void)
+void shift_register_74hc595::write(void)
 {
    digitalWrite(uiRegClkPin, LOW);
 
@@ -59,7 +59,7 @@ void shift_register_74hc595::writeRegisters(void)
 }
 
 //set an individual pin HIGH or LOW
-void shift_register_74hc595::setRegisterPin(unsigned int uiPin_, bool bVal_)
+void shift_register_74hc595::setPin(unsigned int uiPin_, bool bVal_)
 {
    if(uiPin_ >= uiNbrRegPins)
    {
@@ -69,7 +69,7 @@ void shift_register_74hc595::setRegisterPin(unsigned int uiPin_, bool bVal_)
    pbRegisterState[uiPin_] = bVal_;
 }
 
-bool shift_register_74hc595::getRegisterPin(unsigned int uiPin_)
+bool shift_register_74hc595::getPin(unsigned int uiPin_)
 {
    if(uiPin_ >= uiNbrRegPins)
    {
