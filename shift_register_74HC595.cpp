@@ -25,8 +25,8 @@ shift_register_74hc595::shift_register_74hc595(unsigned int uiNbrChainedRegister
    pbRegisterState = (bool *)(malloc(sizeof(bool) * uiNbrRegPins));
 
    //reset all register pins
-   clearRegisters();
-   writeRegisters();
+   clear();
+   write();
 }
 
 
